@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" type="text/css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="js/myjs.js"></script>
+        
+        <title>BSO DimensiWEB</title>
+        <link rel="icon" type="image/gif/png" href="assets/logo dimensiw bw.png ">
+    </head>
+    <body>
+        <div class="ui mediums borderless menu" id="dw-navbar">
+            <a class="item"><i class="home icon"></i> Home</a>
+            <div class="ui dropdown item">
+                DimensiWEB's <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="#dw-article"><i class="newspaper outline icon"></i> Article</a>
+                    <a class="item" href="#dw-gallery"><i class="images outline icon"></i> Gallery</a>
+                </div>
+            </div>
+            <a class="item">About Us</a>
+            <div class="right menu">
+                <a href="https://bit.ly/2kIA0xK">
+                    <div class="item">
+                        <div class="ui animated primary fade button" tabindex="0">
+                            <div class="visible content">Join Us</div>
+                                <div class="hidden content">
+                                    <i class="large whatsapp icon" style="line-height: .8"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="dw-sbar">
+            <div class="ui open button" id="dw-hamb"><i class="large bars icon"></i></div>
+                <div class="ui left vertical sidebar menu">
+                <div class="item">
+                    <i class="home icon"></i> Home
+                </div>
+                <div class="ui dropdown item">
+                    <i class="dropdown icon"></i>
+                    DimensiWEB's
+                    <div class="menu">
+                        <a class="item" href="#dw-article"><i class="newspaper outline icon"></i> Article</a>
+                        <a class="item" href="#dw-article"><i class="images outline icon"></i> Gallery</a>
+                    </div>
+                </div>
+                <a href="" class="item">About Us</a>
+            </div>
+            <a href="https://bit.ly/2kIA0xK">
+                <div class="ui animated primary fade button" id="dw-invbut" tabindex="0">
+                    <div class="visible content">Join Us</div>
+                        <div class="hidden content">
+                            <i class="large whatsapp icon" style="line-height: .8"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <h1 class="ui center aligned icon header">
+            JOIN US
+        </h1>
+        <h3 class="ui center aligned icon header">
+            <span>THIS FRIDAY</span>
+            <span>4.00 PM @ LAB 4.05</span>
+        </h3>
+        <h1 class="ui horizontal divider center aligned header">
+            <div class="content">
+                Article Upload
+            </div>
+        </h1>
+        <div class="dw-container">
+            <div class="dw-contbox">
+                <div class="dw-imgup">
+                    <i class="huge image outline icon"></i><br>
+                    <button class="dw-upbtn">Upload Image</button>
+                </div>
+                <div class="dw-contup">
+                    <h2>Upload Content</h2>
+                    <input type="text" class="field" placeholder="Your Name">
+                    <input type="text" class="field" placeholder="Angkatan">
+                    <textarea placeholder="Content Description" class="field"></textarea>
+                    <button class="dw-postbtn">Post</button>
+                </div>
+            </div>
+        </div>
+        <h1 class="ui center aligned header" id="dw-article">
+            <img src="assets/logo dimensiw bw.png">
+            <div class="content">
+                Daily DimensiWEB
+            </div>
+        </h1>
+        <h4 class="ui horizontal divider header">
+            <i class="newspaper outline icon"></i> Your Posted Article
+        </h4>
+        <div class="ui divided items" id="dw-content">
+            <div class="item">
+                <div class="image" id="dw-content-image">
+                    <img src="assets/crossword.png">
+                </div>
+                <div class="content">
+                    <a class="header" id="dw-content-title">Crossword Script Jawa</a>
+                    <div class="meta" id="dw-content-author">
+                        <span>By Yayang Kurnia (Angkatan 2017)</span>
+                    </div>
+                    <div class="description" id="dw-content-description">
+                        <p>Sebuah game Crossword (Teka-teki Silang) dibuat menggunakan Script Jawa (Javascript). Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque dolor laboriosam et in vel autem dicta minus perferendis. Dolor earum temporibus quod suscipit soluta veniam possimus blanditiis necessitatibus sit ab!</p>
+                    </div>
+                    <div class="extra">
+                        <div class="ui left floated primary button">
+                            Read More
+                            <i class="right chevron icon"></i>
+                        </div><br><br><br>
+                        <div class="left aligned">
+                            Rate this Article :
+                            <div class="ui star rating" data-rating="3" data-max-rating="5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image" id="dw-content-image">
+                    <img src="assets/imex.png">
+                </div>
+                <div class="content">
+                    <a class="header" id="dw-content-title">Title</a>
+                    <div class="meta" id="dw-content-author">
+                        <span>By Author (Angkatan xxxx)</span>
+                    </div>
+                    <div class="description" id="dw-content-description">
+                        <p>Dummy Text. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque dolor laboriosam et in vel autem dicta minus perferendis. Dolor earum temporibus quod suscipit soluta veniam possimus blanditiis necessitatibus sit ab!</p>
+                    </div>
+                    <div class="extra">
+                        <div class="ui left floated primary button">
+                            Read More
+                            <i class="right chevron icon"></i>
+                        </div><br><br><br>
+                        <div class="left aligned">
+                            Rate this Article :
+                            <div class="ui star rating" data-rating="0" data-max-rating="5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="ui horizontal divider header">
+            <i class="images outline icon"></i> Our Gallery
+        </h4>
+        <div class="ui four doubling cards" id="dw-gallery">
+            <div class="card">
+                <div class="image">
+                    <img src="assets/imex.png">
+                </div>
+            </div>
+            <div class="card">
+                <div class="image">
+                    <img src="assets/imex.png">
+                </div>
+            </div>
+            <div class="card">
+                <div class="image">
+                    <img src="assets/imex.png">
+                </div>
+            </div>
+            <div class="card">
+                <div class="image">
+                    <img src="assets/imex.png">
+                </div>
+            </div>
+        </div>
+        <div class="ui inverted vertical footer segment">
+            <div class="logoex" id="aboutus">
+                <a href="https://uinsgd.ac.id/"><img src="assets/logo uin.png" alt="UIN Bandung"></a>
+                <a href="http://himatif.uinsgd.ac.id/"><img src="assets/logo himatif.png" alt="HIMATIF UIN Bandung"></a>
+            </div>
+            <div class="penutup">
+                <span>&#169; DimensiWEB</span><br>
+                <span>All rights belong to their respective owner</span>
+            </div>
+        </div>
+    </body>
+</html>
