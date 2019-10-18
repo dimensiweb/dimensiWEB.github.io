@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" type="text/css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+        <script src="js/myjs.js"></script>
 
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="js/myjs.js"></script>
         
         <title>BSO DimensiWEB</title>
         <link rel="icon" type="image/gif/png" href="assets/logo dimensiw bw.png ">
@@ -81,16 +81,20 @@
         <div class="dw-container">
             <div class="dw-contbox">
                 <div class="dw-imgup">
+                <form id="form_upload">
+                    <img src="" alt="" id="preview">
                     <i class="huge image outline icon"></i><br>
                     <label for="file-upload" class="dw-upbtn">Upload Image</label>
-                    <input id="file-upload" type="file"/>
+                    <input id="file-upload" type="file" onchange="previewFile()"/>
                 </div>
                 <div class="dw-contup">
                     <h2>Upload Content</h2>
-                    <input type="text" class="field" placeholder="Your Name">
-                    <input type="text" class="field" placeholder="Angkatan">
-                    <textarea placeholder="Content Description" class="field"></textarea>
-                    <button class="dw-postbtn">Post</button>
+                    <input type="text" class="field" placeholder="Your Name" id="nama">
+                    <input type="text" class="field" placeholder="Angkatan" id="angkatan">
+                    <input type="text" class="field" placeholder="Judul" id="judul">
+                    <textarea placeholder="Content Description" class="field" id="content"></textarea>
+                    <button type="submit" class="dw-postbtn">Post</button>
+                </form>
                 </div>
             </div>
         </div>
@@ -104,7 +108,7 @@
             <i class="newspaper outline icon"></i> Your Posted Article
         </h4>
         <div class="ui divided items" id="dw-content">
-            <div class="item">
+            <!-- <div class="item">
                 <div class="image" id="dw-content-image">
                     <img src="assets/crossword.png">
                 </div>
@@ -151,13 +155,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <h4 class="ui horizontal divider header">
             <i class="images outline icon"></i> Our Gallery
         </h4>
-        <div class="ui four doubling cards" id="dw-gallery">
-            <div class="card">
+        <div class="ui four doubling cards">
+            <div id="dw-gallery">
+                
+            </div>
+            <!-- <div class="card">
                 <div class="image">
                     <img src="assets/imex.png">
                 </div>
@@ -176,7 +183,7 @@
                 <div class="image">
                     <img src="assets/imex.png">
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="ui inverted vertical footer segment">
             <div class="logoex" id="aboutus">
@@ -188,5 +195,108 @@
                 <span>All rights belong to their respective owner</span>
             </div>
         </div>
+
+        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+        
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyAtyNq-jpPAPWkOqPxfw-k0LdcKuX-jQYg",
+                authDomain: "materi-fb.firebaseapp.com",
+                databaseURL: "https://materi-fb.firebaseio.com",
+                projectId: "materi-fb",
+                storageBucket: "materi-fb.appspot.com",
+                messagingSenderId: "66417248213",
+                appId: "1:66417248213:web:525e42d5aef05913025f5c"
+            };
+
+            const fb = firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+            const storageRef = fb.storage().ref('');
+            const nama = document.getElementById('nama');
+            const angkatan = document.getElementById('angkatan');
+            const content = document.getElementById('content');
+            const uploader = document.getElementById('uploader');
+            let file_gambar = "";
+
+            database.ref('/tb_gambar/').once('value').then(function (snapshot) {
+                if (snapshot.exists()) {
+                    let content = '';
+                    snapshot.forEach(function (data) {
+                        let val = data.val();
+                        content += '<div class="card">';
+                        content += '<div class="image">';
+                        content += `<img src="${val.url}" alt="${val.nama}">`;
+                        content += '</div>';
+                        content += '</div>';
+                    });
+                    document.getElementById('dw-gallery').innerHTML = content;
+                }
+            });
+
+            database.ref('/tb_post/').once('value').then(function (snapshot) {
+                if (snapshot.exists()) {
+                    let content = '';
+                    snapshot.forEach(function (data) {
+                        let val = data.val();
+                        content += '<div class="item">';
+                            content += '<div class="image" id="dw-content-image">';
+                                content += `<img src="${val.url}" alt="${val.nama}">`;
+                            content += '</div>';
+                            content += '<div class="content">';
+                                content += '<a class="header" id="dw-content-title">';
+                                    content += `${val.judul}`;
+                                content += `</a>`;
+                                content += '<div class="meta" id="dw-content-author">';
+                                    content += `<span>By ${val.nama} (Angkatan ${val.angkatan})</span>`;
+                                content += '</div>';
+                            content += '<div class="description" id="dw-content-description">';
+                                content += `<p>${val.content}</p>`; 
+                            content += '</div>';
+                        content += '</div>';
+                    });
+                    document.getElementById('dw-content').innerHTML = content;
+                }
+            });
+            
+            function previewFile() {
+                let file = document.querySelector('input[type=file]').files[0];
+                let metadata = { contentType: 'image/jpeg' };
+                file_gambar = file.name;
+                let uploadTask = storageRef.child('post/' + file.name).put(file, metadata);
+                uploadTask.on('state_changed', function (snapshot) {
+                    let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(percentage);
+                    uploader.value = percentage;
+                }, function (error) {
+                    console.log('error while uploading')
+                }, function () {
+                    let starsRef = storageRef.child('post/' + file.name);
+                    // starsRef.getDownloadURL().then(function (url) {
+                    //     document.querySelector('#preview').src = url;
+                    // }).catch(function (error) {
+                    //     console.log('error while downloading file');
+                    // });
+                });
+            }
+
+            document.getElementById("form_upload").addEventListener("submit", function (e) {
+                e.preventDefault();
+                let entry = {};
+                let nama = file_gambar;
+                let nm_db = "https://firebasestorage.googleapis.com/v0/b/materi-fb.appspot.com/o/post%2F" + nama;
+                let media = nm_db + "?alt=media"
+                entry.url = media;
+                entry.nama = document.getElementById("nama").value;
+                entry.angkatan = document.getElementById("angkatan").value;
+                entry.content = document.getElementById("content").value;
+                let Entry = firebase.database().ref('tb_post');
+                Entry.push(entry).then(function (data) {
+                    alert("Data berhasil diupload");
+                    window.location.href = ''
+                });
+                return false;
+            });
+        </script>
     </body>
 </html>
